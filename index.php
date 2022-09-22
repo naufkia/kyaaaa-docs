@@ -73,44 +73,22 @@
         <li class="nav-item"><a class="nav-link active" href="#idocs_start">Getting Started</a>
           <ul class="nav flex-column">
             <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_html_structure">HTML Structure</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_sass">Sass</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_color_schemes">Color Schemes</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_theme_customization">Customization</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_logo_settings">Logo Settings</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_layout">Layout</a>
+        <li class="nav-item"><a class="nav-link" href="#idocs_router    ">Framework (MVC)</a>
           <ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_navbar">Navbar</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_sidebar">Sidebar</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_footer">Footer</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_box_layout">Box Layout</a></li>
+			<li class="nav-item"><a class="nav-link" href="#idocs_router">Router</a></li>
+			<li class="nav-item"><a class="nav-link" href="#idocs_controller">Controller</a></li>
+			<li class="nav-item"><a class="nav-link" href="#idocs_models">Model & Query Builder</a></li>
+			<li class="nav-item"><a class="nav-link" href="#idocs_views">Views</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_content">Content</a>
+        <li class="nav-item"><a class="nav-link" href="#idocs_content">Helper</a>
 			<ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_typography">Typography</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_code">Code</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_table">Table</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_icons">Icons</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_image">Image</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_video">Video</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_typography">URL Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_code">Dump Helper</a></li>
           </ul>
 		</li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_components">Components</a>
-          <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_accordion">Accordion</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_tabs">Tabs</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_social_icon">Social Icon</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_helper_classes">Helper Classes</a></li>
-          </ul>
-        </li>
-		<li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
-		<li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
 		<li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a>
 			<ul class="nav flex-column">
             <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1</a></li>
@@ -128,50 +106,47 @@
         <!-- Getting Started
 		============================ -->
         <section id="idocs_start">
-        <p class="lead">To install this Framework and libraries you must have composer installed.</p>
-		<hr>
-		<div class="row">
-			<div class="col-sm-6 col-lg-4">
-				<ul class="list-unstyled">
-					<li><strong>Version:</strong> 0.03 Beta</li>
-					<li><strong>Author:</strong> <a href="http://nauf.space" target="_blank">Nauf</a></li>
-				</ul>
-			</div>
-			<div class="col-sm-6 col-lg-4">
-				<ul class="list-unstyled">
-					<li><strong class="font-weight-700">Created:</strong> 19 Sept, 2022</li>
-					<li><strong>Update:</strong> 23 Sept, 2022</li>
-				</ul>
-			</div>
-		</div>
-        <p class="alert alert-info">If you have any questions that are beyond the scope of this, Please feel free to email to <a href="mailto:naufspace@gmail.com">naufspace@gmail.com</a></p>
+            <h2 class="ml-n3">Getting Started</h2>
+            <ol class="ml-n2">
+                <li>Below is the weird folder structure :
+                    <ul>
+                        <li><code>/apk</code> - Contains all of the assets referenced
+                            <ul>
+                                <li><code>/apk/Conf</code> - Configuration Directory
+                                    <ul>
+                                        <li><code>/apk/Conf/System</code> - Core Directory (don't edit any files here)</li>
+                                    </ul>
+                                </li>
+                                <li><code>/apk/Kontolers</code> - Controllers Directory</li>
+                                <li><code>/apk/Modols</code> - Models Directory</li>
+                                <li><code>/apk/Piews</code> – Views Directory</li>
+                            </ul>
+                        </li>
+                        <li><code>/ewwe</code> - Public Directory
+                    </ul>
+                </li>
+            </ol>
         </section>
-      
+
+          <hr class="divider">
 		
         <!-- Installation
 		============================ -->
         <section id="idocs_installation">
-          <h2>Installation</h2>
-          <p class="lead">Follow the steps below to setup your site template:</p>
-          <ol>
-            <li>Unzip the downloaded package and open the <strong>/HTML</strong> folder to find all the template files. You will need to upload these files to your hosting web server using FTP or localhost in order to use it on your website.</li>
-            <li>Below is the folder structure and needs to be uploaded to your website or localhost root directory:
-            <ul>
-			<li><code>HTML/assets</code> - Contains all of the assets referenced
-			  <ul>
-                <li><code>HTML/css</code> - Stylesheet files</li>
-                <li><code>HTML/images</code> - Images files</li>
-                <li><code>HTML/js</code> - Javacript files</li>
-                <li><code>HTML/sass</code> - Sass files</li>
-                <li><code>HTML/vendor</code> – All external libs.</li>
-              </ul>
-			</li>
-			<li><code>HTML/index.html</code> - Homepage
-			</ul>
-            </li>
-            <li>You should upload all or specific HTML files as per your need.</li>
-            <li>You are good to go for adding your content now!</li>
-          </ol>
+          <h2 class="ml-n3">Installation</h2>
+            <div class="alert alert-warning mb-4 w-50 ml-3"><span class="badge badge-danger text-uppercase">Note:</span> PHP version 7.4 or newer is required.</div>
+          <p class="lead">Composer Installation</p>
+            <div class="alert alert-dark text-alert ml-3" role="alert">
+                composer create-project naufkia/kyaaaa-php
+            </div>
+        <p class="lead">Manual Installation</p>
+            <p class="ml-3">Download or Clone from github : <a class="ml-1" target="_blank" href="https://github.com/naufkia/kyaaaa-php"><i class="fas fa-external-link-alt"></i> https://github.com/naufkia/kyaaaa-php</a></p>
+            <p class="lead">Running Your App</p>
+            <p class="ml-3">Start by running the server, by default it runs on localhost:6969</p>
+            <div class="alert alert-dark text-alert ml-3" role="alert">
+                php kyaaaa
+            </div>
+            <div class="alert alert-warning mb-4 w-75 ml-3"><span class="badge badge-danger text-uppercase">Note:</span> If any error happen try to run <code>composer install</code> then <code>composer update</code> first.</div>
         </section>
         
 		<hr class="divider">
