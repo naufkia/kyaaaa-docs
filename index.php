@@ -17,8 +17,8 @@
 <!-- Highlight Syntax -->
 <!--<link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />-->
 <!-- Custom Stylesheet -->
-<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/prism.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css?v=3" />
+<link rel="stylesheet" type="text/css" href="assets/css/prism.css?v=3" />
 </head>
 
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125" class="bootstrap-dark">
@@ -132,7 +132,7 @@
             <div class="alert alert-warning mb-4 w-50 ml-3"><span class="badge badge-danger text-uppercase">Note:</span> PHP version 7.4 or newer is required.</div>
           <p class="lead">Composer Installation</p>
             <div class="alert alert-dark text-alert ml-3" role="alert">
-                composer create-project naufkia/kyaaaa-php
+                composer create-project naufkia/kyaaaa-php:dev-main
             </div>
         <p class="lead">Manual Installation</p>
             <p class="ml-3">Download or Clone from github : <a class="ml-1" target="_blank" href="https://github.com/naufkia/kyaaaa-php"><i class="fas fa-external-link-alt"></i> https://github.com/naufkia/kyaaaa-php</a></p>
