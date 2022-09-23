@@ -83,10 +83,11 @@
 			<li class="nav-item"><a class="nav-link" href="#idocs_views">Views</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_content">Helper</a>
+        <li class="nav-item"><a class="nav-link" href="#idocs_url">Helper</a>
 			<ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_typography">URL Helper</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_code">Dump Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_url">URL Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_dump">Dump Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_sanitize">Sanitize Helper</a></li>
           </ul>
 		</li>
       </ul>
@@ -100,7 +101,7 @@
         <!-- Getting Started
 		============================ -->
         <section id="idocs_start">
-            <h2 class="ml-n3">Getting Started</h2>
+            <h2 class="ml-3 ml-sm-n3">Getting Started</h2>
             <ol class="ml-n2">
                 <li>Below is the weird folder structure :
                     <ul>
@@ -127,7 +128,7 @@
         <!-- Installation
 		============================ -->
         <section id="idocs_installation">
-          <h2 class="ml-n3">Installation</h2>
+          <h2 class="ml-3 ml-sm-n3">Installation</h2>
             <div class="alert alert-warning mb-4 w-50 ml-3"><span class="badge badge-danger text-uppercase">Note:</span> PHP version 7.4 or newer is required.</div>
           <p class="lead">Composer Installation</p>
             <div class="alert alert-dark text-alert ml-3" role="alert">
@@ -148,7 +149,7 @@
         <!-- HTML Structure
 		============================ -->
         <section id="idocs_routes">
-          <h2 class="ml-n3">Routes</h2>
+          <h2 class="ml-3 ml-sm-n3">Routes</h2>
 
             <p class="lead">Basic Usage</p>
                 <p class="ml-3">Config File : <code class="text-alert">apk/Conf/Routes.php</code></p>
@@ -159,22 +160,22 @@
                 <li><span class="badge badge-danger">DELETE</span> <code>$router->post('/home', function() { /* ... */ });</code></li>
             </ul>
             <p class="lead">Dynamic based Route Patterns</p>
-<pre class="line-numbers ml-3"><code class="language-php ml-n1">// http(s)://www.example.org/product/12/item/21
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">// http(s)://www.example.org/product/12/item/21
 $router->get('/product/:productId/item/:itemId', function($productId, $itemId) {
     echo 'Product #' . $productId . ', item #' . $itemId;
 });</code></pre>
             <p class="ml-3">or With RegEx</p>
-<pre class="line-numbers ml-3"><code class="language-php ml-n1">$router->get('/product/:id', function($id) {
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/product/:id', function($id) {
     echo 'Product #'.$id;
 })->with('id','[0-9]+');</code></pre>
-<pre class="line-numbers ml-3"><code class="language-php ml-n1">// http(s)://www.example.org/product/12-windowsphone`
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">// http(s)://www.example.org/product/12-windowsphone`
 $router->get('/product/:id-:title', function($id, $title) {
     echo 'Product #' . $id . ', title #' . $title;
 })->with('id','[0-9]+')
 ->with('title','[a-z\0-9]+');</code></pre>
 
             <p class="lead">Group Routing</p>
-<pre class="line-numbers ml-3"><code class="language-php ml-n1">$router->group('/product', function() use ($router) {
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->group('/product', function() use ($router) {
 
     // Produces: '/product/'
     $router->get('/', function() {
@@ -188,7 +189,7 @@ $router->get('/product/:id-:title', function($id, $title) {
 
 });</code></pre>
 
-<pre class="line-numbers ml-3"><code class="language-php ml-n1">$router->group('/articles', function() use ($router) {
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->group('/articles', function() use ($router) {
 
 // Produces: '/product/'
 $router->get('/', function() {
@@ -209,11 +210,11 @@ $router->get('/', function() {
 
 });</code></pre>
             <p class="lead">Using Controller</p>
-            <pre class="line-numbers ml-3"><code class="language-php ml-n1">$router->get('/users/:id', '\Apk\Kontolers\UserKntl#index');</code></pre>
+            <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/users/:id', '\Apk\Kontolers\UserKntl#index');</code></pre>
             <p class="ml-3">or</p>
-            <pre class="line-numbers ml-3"><code class="language-php ml-n1">$router->get('/users/:id', [\Apk\Kontolers\UserKntl::class,'index']);</code></pre>
+            <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/users/:id', [\Apk\Kontolers\UserKntl::class,'index']);</code></pre>
             <p class="lead">Before Route (Middleware)</p>
-            <pre class="line-numbers ml-3"><code class="language-php ml-n1">$router->get('/product/:id', function($id) {
+            <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/product/:id', function($id) {
     echo "Product #:".$id;
 })->middleware(function($id){
     if(!filter_var($id,FILTER_VALIDATE_INT)){
@@ -226,9 +227,9 @@ $router->get('/', function() {
 		<hr class="divider">
 
           <section id="idocs_controllers">
-              <h2 class="ml-n3">Controllers</h2>
+              <h2 class="ml-3 ml-sm-n3">Controllers</h2>
               <p class="lead">Example</p>
-              <pre class="line-numbers ml-3"><code class="language-php ml-n1">&lt;?php namespace Apk\Kontolers;
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Apk\Kontolers;
 
 use Apk\Modols\HomeModol;
 
@@ -249,13 +250,253 @@ class HomeKntl {
 
           <hr class="divider">
 
-          <section id="idocs_controllers">
-              <h2 class="ml-n3">Model & Query Builder</h2>
+          <section id="idocs_models">
+              <h2 class="ml-3 ml-sm-n3">Model & Query Builder</h2>
               <p class="lead">Example</p>
-              <pre class="line-numbers ml-3"><code class="language-php ml-n1">// WIP</code></pre>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Apk\Modols;
+
+use Kyaaaa\System\DB;
+
+class HomeModol {
+    public function get_users_active() {
+        $builder = DB::query('users');
+        $builder->select('*');
+        $builder->where('status', 'active');
+        $query = $builder->get();
+        return $query;
+    }
+}</code></pre>
+              <p class="lead">Query Builder</p>
+              <p class="lead ml-3">Get Data</p>
+              <p class="ml-3">Get all data</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$query = $builder->all()->get();
+return $query; // Produces: SELECT * FROM mytable</code></pre>
+              <p class="ml-3">Get all data with limit</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$query = $builder->all()->limit(20)->get();
+return $query; // Produces: SELECT * FROM mytable</code></pre>
+              <p class="ml-3">Get specific columns from the table</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('name,email,status');
+$query = $builder->get();
+return $query; // Produces: SELECT name,email,status FROM mytable</code></pre>
+
+              <p class="ml-3">Get only one columns from the table</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('COUNT(id) AS total')
+$query = $builder->first();
+return $query; // Produces: SELECT name,email,status FROM mytable</code></pre>
+
+              <p class="lead ml-3">Looking for Specific Data</p>
+              <p class="ml-3">Where</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->where('status', 'active');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status = 'active'</code></pre>
+
+              <p class="ml-3">Where with custom operators</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->where('status !=', 'active');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status != 'active'</code></pre>
+
+              <p class="ml-3">Where is NULL</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->whereIsNull('status');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status IS NULL</code></pre>
+
+              <p class="ml-3">Where is NOT NULL</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->whereIsNotNull('status');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status IS NULL</code></pre>
+
+              <p class="ml-3">Where Like</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->whereLike('status', 'a%');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status LIKE 'a%'</code></pre>
+
+              <p class="ml-3">Where In</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->whereIn('status', '1,2,3');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status IN (1,2,3)</code></pre>
+
+              <p class="lead ml-3">Ordering Data</p>
+              <p class="ml-3">OrderBy</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->orderBy('id', 'DESC'); // OR 'ASC'
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable ORDER BY 'DESC'</code></pre>
+
+
+          <p class="lead ml-3">Inserting Data</p>
+          <p class="ml-3">Insert</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$data = [
+    'id' => 1,
+    'name' => 'rehan',
+    'status' => 'active'
+];
+$builder = DB::query('mytable');
+$builder->insert($data);
+$query = $builder->save();
+return $query; // Produces: INSERT INTO mytable (id, name, email) VALUES ('1', 'rehan', 'active')</code></pre>
+
+          <p class="lead ml-3">Updating Data</p>
+          <p class="ml-3">Update</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$data = [
+    'status' => 'non-active'
+];
+$builder = DB::query('mytable');
+$builder->insert($data);
+$builder->where('id', 1);
+$query = $builder->save();
+return $query; // gives UPDATE mytable SET status = 'non-active' WHERE id = 1</code></pre>
+
+          <p class="lead ml-3">Deleting Data</p>
+          <p class="ml-3">Update</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->delete();
+$builder->where('id', 1);
+$query = $builder->save();
+return $query; // Produces: DELETE FROM mytable WHERE id = 1</code></pre>
+
+          <p class="lead ml-3">Join Data</p>
+          <p class="ml-3">Inner Join</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('blogs');
+$builder->select('*');
+$builder->join('comments', 'comments.id', '=', 'blogs.id');
+$builder->where('status', 'publish');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM blogs INNER JOIN comments ON comments.id = blogs.id WHERE status = 'publish'</code></pre>
+
+          <p class="ml-3">Left Join</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('blogs');
+$builder->select('*');
+$builder->leftJoin('comments', 'comments.id', '=', 'blogs.id');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM blogs LEFT JOIN comments ON comments.id = blogs.id</code></pre>
+
+          <p class="ml-3">Right Join</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('blogs');
+$builder->select('*');
+$builder->rightJoin('comments', 'comments.id', '=', 'blogs.id');
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM blogs LEFT JOIN comments ON comments.id = blogs.id</code></pre>
+
+          <p class="lead ml-3">Union Queries</p>
+          <p class="ml-3">Union</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('customers')->select('name');
+$builder->union('suppliers', 'name');
+$query = $builder->get();
+return $query; // Produces: SELECT city FROM customers UNION SELECT city FROM suppliers</code></pre>
+          <p class="ml-3">Union All</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('customers')->select('name');
+$builder->unionAll('suppliers', 'name');
+$query = $builder->get();
+return $query; // Produces: SELECT city FROM customers UNION ALL SELECT city FROM suppliers</code></pre>
+
+              <p class="lead ml-3">Custom Queries</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$query = DB::query()->custom('TRUNCATE TABLE mytable');
+return $query;</code></pre>
+
           </section>
 
           <hr class="divider">
+
+          <section id="idocs_views">
+              <h2 class="ml-3 ml-sm-n3">Views</h2>
+              <p class="lead">Creating a View</p>
+              <p class="ml-3">Create a file called *.piews.php and put this in it:</p>
+              <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+&lt;head>
+    &lt;title>My Blog&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;h1>Welcome to my Blog!&lt;/h1>
+&lt;/body>
+&lt;/html></code></pre>
+
+              <p class="lead">Displaying a View & Passing data to views</p>
+              <p class="ml-3">Controller Example</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php
+
+namespace Apk\Kontolers;
+
+class Blog
+{
+    public function index()
+    {
+        $data['title'] = 'Blog Title';
+        $data['desc'] = 'Blog Desc';
+        return view('blog_view', $data);
+    }
+}</code></pre>
+              <p class="ml-3">Parsing data in views</p>
+              <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+&lt;head>
+    &lt;title>&lt;?= $title ?>&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;h1>&lt;?= $title ?>&lt;/h1>
+    &lt;h3>&lt;?= $desc ?>&lt;/h3>
+&lt;/body>
+&lt;/html></code></pre>
+
+          </section>
+
+          <section id="idocs_url">
+              <h2 class="ml-3 ml-sm-n3">Helper</h2>
+              <p class="lead" id="idocs_url">URL Helper</p>
+              <p class="ml-3">Example usage of url helper on views</p>
+              <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+&lt;head>
+    &lt;title>My Blog&lt;/title>
+    &lt;link href="&lt;?= url('assets/css') ?>/bootstrap.min.css" rel="stylesheet">
+&lt;/head>
+&lt;body>
+    &lt;h1>Welcome to my Blog!&lt;/h1>
+&lt;/body>
+&lt;/html></code></pre>
+
+              <p class="lead" id="idocs_dump">DUMP Helper</p>
+              <p class="ml-3">Example usage of dump helper on controllers</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Apk\Kontolers;
+
+use Apk\Modols\HomeModol;
+
+class HomeKntl {
+    public function __construct() {
+        $this->suUsersM = new HomeModol();
+    }
+
+    public function index() {
+            $get_user_active = $this->suUsersM->get_users_active();
+            dd($get_user_active); // use d() or dd() for dump!
+    }
+}</code></pre>
+
+              <p class="lead" id="idocs_sanitize">Sanitize Helper</p>
+              <p class="ml-3">Example usage of sanitize helper on views</p>
+              <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+&lt;head>
+    &lt;title>&lt;?= esc($title) ?>&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;h1>&lt;?= esc($title) ?>&lt;/h1>
+    &lt;h3>&lt;?= esc($desc) ?>&lt;/h3>
+&lt;/body>
+&lt;/html></code></pre>
         
       </div>
     </div>
