@@ -112,12 +112,12 @@
                                     <li><code>/core/Conf/Kyaaaa</code> Base classes of kyaaaa framework</li>
                                 </ul>
                             </li>
-                            <li><code>/core/Controllers</code>Controllers Directory</li>
-                            <li><code>/core/Models</code>Models Directory</li>
-                            <li><code>/core/Views</code>Views Directory</li>
+                            <li><code>/core/Controllers</code> Controllers Directory</li>
+                            <li><code>/core/Models</code> Models Directory</li>
+                            <li><code>/core/Views</code> Views Directory</li>
                         </ul>
                     </li>
-                    <li><code>/public</code> - Public Directory
+                    <li><code>/public</code> Public Directory
                 </ul>
             </ol>
         </section>
