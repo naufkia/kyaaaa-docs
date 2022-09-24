@@ -48,7 +48,7 @@
 		<button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
 		
 		<!-- Logo --> 
-        <h3 class="my-0 ml-2">Kyaaaa-PHP <span class="text-2">Docs</span></h3> 
+        <h3 class="my-0 ml-2">Kyaaaa-PHP <span class="text-2">LazyDocs</span></h3> 
 		     
         <!-- Logo End -->
     
