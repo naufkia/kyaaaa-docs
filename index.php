@@ -15,10 +15,10 @@
 <!-- Magnific Popup -->
 <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css" />
 <!-- Highlight Syntax -->
-<!--<link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />-->
+<link rel="stylesheet" type="text/css" href="assets/css/prism.css?v=4" />
 <!-- Custom Stylesheet -->
-<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css?v=3" />
-<link rel="stylesheet" type="text/css" href="assets/css/prism.css?v=3" />
+<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css?v=4" />
+
 </head>
 
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125" class="bootstrap-dark">
@@ -70,24 +70,24 @@
 	============================ -->
 	<div class="idocs-navigation bg-dark-2">
       <ul class="nav flex-column ">
-        <li class="nav-item"><a class="nav-link active" href="#idocs_start">Getting Started</a>
+        <li class="nav-item"><a class="nav-link active" href="#section_start">Getting Started</a>
           <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_installation">Installation</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_routes">Framework (MVC)</a>
+        <li class="nav-item"><a class="nav-link" href="#section_routes">Framework (MVC)</a>
           <ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link" href="#idocs_routes">Router</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_controllers">Controllers</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_models">Model & Query Builder</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_views">Views</a></li>
+			<li class="nav-item"><a class="nav-link" href="#section_routes">Router</a></li>
+			<li class="nav-item"><a class="nav-link" href="#section_controllers">Controllers</a></li>
+			<li class="nav-item"><a class="nav-link" href="#section_models">Model & Query Builder</a></li>
+			<li class="nav-item"><a class="nav-link" href="#section_views">Views</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_url">Helper</a>
+        <li class="nav-item"><a class="nav-link" href="#section_url">Helper</a>
 			<ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_url">URL Helper</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_dump">Dump Helper</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_sanitize">Sanitize Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_url">URL Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_dump">Dump Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_sanitize">Sanitize Helper</a></li>
           </ul>
 		</li>
       </ul>
@@ -100,26 +100,25 @@
         
         <!-- Getting Started
 		============================ -->
-        <section id="idocs_start">
+        <section id="section_start">
             <h2 class="ml-3 ml-sm-n3">Getting Started</h2>
+            <p class="ml-3">Folder structure :</p>
             <ol class="ml-n2">
-                <li>Below is the weird folder structure :
-                    <ul>
-                        <li><code>/apk</code> - Contains all of the assets referenced
-                            <ul>
-                                <li><code>/apk/Conf</code> - Configuration Directory
-                                    <ul>
-                                        <li><code>/apk/Conf/System</code> - Core Directory (don't edit any files here)</li>
-                                    </ul>
-                                </li>
-                                <li><code>/apk/Kontolers</code> - Controllers Directory</li>
-                                <li><code>/apk/Modols</code> - Models Directory</li>
-                                <li><code>/apk/Piews</code> – Views Directory</li>
-                            </ul>
-                        </li>
-                        <li><code>/ewwe</code> - Public Directory
-                    </ul>
-                </li>
+                <ul>
+                    <li><code>/core</code> App Directory
+                        <ul>
+                            <li><code>/core/Conf</code> Configuration Directory
+                                <ul>
+                                    <li><code>/core/Conf/Kyaaaa</code> Base classes of kyaaaa framework</li>
+                                </ul>
+                            </li>
+                            <li><code>/core/Controllers</code>Controllers Directory</li>
+                            <li><code>/core/Models</code>Models Directory</li>
+                            <li><code>/core/Views</code>Views Directory</li>
+                        </ul>
+                    </li>
+                    <li><code>/public</code> - Public Directory
+                </ul>
             </ol>
         </section>
 
@@ -127,28 +126,31 @@
 		
         <!-- Installation
 		============================ -->
-        <section id="idocs_installation">
+        <section id="section_installation">
           <h2 class="ml-3 ml-sm-n3">Installation</h2>
-            <div class="alert alert-warning mb-4 w-50 ml-3"><span class="badge badge-danger text-uppercase">Note:</span> PHP version 7.4 or newer is required.</div>
+            <div class="alert alert-warning mb-4 w-100 ml-3"><span class="badge badge-danger text-uppercase">Note:</span> PHP version 7.4 or newer is required.</div>
           <p class="lead">Composer Installation</p>
             <div class="alert alert-dark text-alert ml-3" role="alert">
                 composer create-project naufkia/kyaaaa-php:dev-main
             </div>
         <p class="lead">Manual Installation</p>
-            <p class="ml-3">Download or Clone from github : <a class="ml-1" target="_blank" href="https://github.com/naufkia/kyaaaa-php"><i class="fas fa-external-link-alt"></i> https://github.com/naufkia/kyaaaa-php</a></p>
+            <p class="ml-3">Download or Clone from github <a class="ml-1" target="_blank" href="https://github.com/naufkia/kyaaaa-php"><i class="fas fa-external-link-alt"></i> https://github.com/naufkia/kyaaaa-php</a></p>
+            <div class="alert alert-dark text-alert ml-3" role="alert">
+                composer install
+            </div>
             <p class="lead">Running Your App</p>
             <p class="ml-3">Start by running the server, by default it runs on localhost:6969</p>
             <div class="alert alert-dark text-alert ml-3" role="alert">
                 php kyaaaa
             </div>
-            <div class="alert alert-warning mb-4 w-75 ml-3"><span class="badge badge-danger text-uppercase">Note:</span> If any error happen try to run <code>composer install</code> then <code>composer update</code> first.</div>
+        
         </section>
         
 		<hr class="divider">
 		
         <!-- HTML Structure
 		============================ -->
-        <section id="idocs_routes">
+        <section id="section_routes">
           <h2 class="ml-3 ml-sm-n3">Routes</h2>
 
             <p class="lead">Basic Usage</p>
@@ -210,9 +212,9 @@ $router->get('/', function() {
 
 });</code></pre>
             <p class="lead">Using Controller</p>
-            <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/users/:id', '\Apk\Kontolers\UserKntl#index');</code></pre>
+            <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/users/:id', '\core\Controllers\HomeCtrl#index');</code></pre>
             <p class="ml-3">or</p>
-            <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/users/:id', [\Apk\Kontolers\UserKntl::class,'index']);</code></pre>
+            <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/users/:id', [\core\Controllers\UserCtrl::class,'index']);</code></pre>
             <p class="lead">Before Route (Middleware)</p>
             <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->get('/product/:id', function($id) {
     echo "Product #:".$id;
@@ -226,23 +228,23 @@ $router->get('/', function() {
         
 		<hr class="divider">
 
-          <section id="idocs_controllers">
+          <section id="section_controllers">
               <h2 class="ml-3 ml-sm-n3">Controllers</h2>
               <p class="lead">Example</p>
-              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Apk\Kontolers;
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Core\Controllers;
 
-use Apk\Modols\HomeModol;
+use Core\Models\HomeModel;
 
-class HomeKntl {
+class HomeCtrl {
     public function __construct() {
-        $this->suUsersM = new HomeModol();
+        $this->suUsersM = new HomeModel();
     }
 
     public function index() {
 //        $get_user = $this->suUsersM->get_users_active();
 //        dd($get_user); // use d() or dd() for dump!
         $data['title'] = 'Hello World';
-        $data['subtitle'] = 'Kyaaaa Weird PHP Framework';
+        $data['subtitle'] = 'The Subtitles';
         return view('home', $data);
     }
 }</code></pre>
@@ -250,14 +252,14 @@ class HomeKntl {
 
           <hr class="divider">
 
-          <section id="idocs_models">
+          <section id="section_models">
               <h2 class="ml-3 ml-sm-n3">Model & Query Builder</h2>
               <p class="lead">Example</p>
-              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Apk\Modols;
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Core\Models;
 
-use Kyaaaa\System\DB;
+use Core\Conf\Kyaaaa\DB;
 
-class HomeModol {
+class HomeModel {
     public function get_users_active() {
         $builder = DB::query('users');
         $builder->select('*');
@@ -302,6 +304,30 @@ $builder->select('*');
 $builder->where('status !=', 'active');
 $query = $builder->get();
 return $query; // Produces: SELECT * FROM mytable WHERE status != 'active'</code></pre>
+
+<p class="ml-3">Multiple where condition (AND OPERATOR)</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->where('status', 'active');
+$builder->where('publish !=', 0); // also can use and(). Example: $builder->and('publish !=', 0);
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status = 'active' AND publish = 0</code></pre>
+
+<p class="ml-3">Using OR Operator</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->where('status', 'active');
+$builder->or('publish', 1);
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status = 'active' OR publish = 1</code></pre>
+
+<p class="ml-3">Using HAVING</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
+$builder->select('*');
+$builder->where('status', 'active');
+$builder->having('publish', 1);
+$query = $builder->get();
+return $query; // Produces: SELECT * FROM mytable WHERE status = 'active' HAVING publish = 1</code></pre>
 
               <p class="ml-3">Where is NULL</p>
               <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
@@ -372,27 +398,20 @@ $query = $builder->save();
 return $query; // Produces: DELETE FROM mytable WHERE id = 1</code></pre>
 
           <p class="lead ml-3">Join Data</p>
-          <p class="ml-3">Inner Join</p>
-          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('blogs');
+          <p class="ml-3">Supported Types of Joins: <code class="text-alert">INNER</code> <code class="text-alert">LEFT</code> <code class="text-alert">RIGHT</code> <code class="text-alert">CROSS</code></p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('users');
 $builder->select('*');
-$builder->join('comments', 'comments.id', '=', 'blogs.id');
-$builder->where('status', 'publish');
+$builder->join('INNER','comments', 'users.id = comments.user_id');
 $query = $builder->get();
-return $query; // Produces: SELECT * FROM blogs INNER JOIN comments ON comments.id = blogs.id WHERE status = 'publish'</code></pre>
+return $query; // Produces: SELECT * FROM users INNER JOIN comments ON users.id = comments.user_id'</code></pre>
 
-          <p class="ml-3">Left Join</p>
-          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('blogs');
-$builder->select('*');
-$builder->leftJoin('comments', 'comments.id', '=', 'blogs.id');
+<p class="lead ml-3">Grouping Data</p>
+          <p class="ml-3">GROUP BY</p>
+          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('users');
+$builder->select('COUNT(id),address');
+$builder->groupBy('address');
 $query = $builder->get();
-return $query; // Produces: SELECT * FROM blogs LEFT JOIN comments ON comments.id = blogs.id</code></pre>
-
-          <p class="ml-3">Right Join</p>
-          <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('blogs');
-$builder->select('*');
-$builder->rightJoin('comments', 'comments.id', '=', 'blogs.id');
-$query = $builder->get();
-return $query; // Produces: SELECT * FROM blogs LEFT JOIN comments ON comments.id = blogs.id</code></pre>
+return $query; // Produces: SELECT COUNT(id),address FROM users GROUP BY address'</code></pre>
 
           <p class="lead ml-3">Union Queries</p>
           <p class="ml-3">Union</p>
@@ -414,7 +433,7 @@ return $query;</code></pre>
 
           <hr class="divider">
 
-          <section id="idocs_views">
+          <section id="section_views">
               <h2 class="ml-3 ml-sm-n3">Views</h2>
               <p class="lead">Creating a View</p>
               <p class="ml-3">Create a file called *.piews.php and put this in it:</p>
@@ -455,9 +474,9 @@ class Blog
 
           </section>
 
-          <section id="idocs_url">
+          <section id="section_url">
               <h2 class="ml-3 ml-sm-n3">Helper</h2>
-              <p class="lead" id="idocs_url">URL Helper</p>
+              <p class="lead" id="section_url">URL Helper</p>
               <p class="ml-3">Example usage of url helper on views</p>
               <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
 &lt;head>
@@ -469,24 +488,24 @@ class Blog
 &lt;/body>
 &lt;/html></code></pre>
 
-              <p class="lead" id="idocs_dump">DUMP Helper</p>
+              <p class="lead" id="section_dump">DUMP Helper</p>
               <p class="ml-3">Example usage of dump helper on controllers</p>
-              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Apk\Kontolers;
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Core\Controllers;
 
-use Apk\Modols\HomeModol;
+use Core\Models\HomeModel;
 
-class HomeKntl {
+class HomeCtrl {
     public function __construct() {
-        $this->suUsersM = new HomeModol();
+        $this->HomeModel = new HomeModel();
     }
 
     public function index() {
-            $get_user_active = $this->suUsersM->get_users_active();
+            $get_user_active = $this->HomeModel->get_users_active();
             dd($get_user_active); // use d() or dd() for dump!
     }
 }</code></pre>
 
-              <p class="lead" id="idocs_sanitize">Sanitize Helper</p>
+              <p class="lead" id="section_sanitize">Sanitize Helper</p>
               <p class="ml-3">Example usage of sanitize helper on views</p>
               <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
 &lt;head>
@@ -515,13 +534,13 @@ class HomeKntl {
 <script src="assets/vendor/jquery/jquery.min.js"></script> 
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
 <!-- Highlight JS -->
-<!--<script src="assets/vendor/highlight.js/highlight.min.js"></script> -->
+<script src="assets/js/prism.js"></script> 
 <!-- Easing --> 
 <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script> 
 <!-- Magnific Popup --> 
 <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <!-- Custom Script -->
 <script src="assets/js/theme.js"></script>
-<script src="assets/js/prism.js"></script> 
+
 </body>
 </html>
