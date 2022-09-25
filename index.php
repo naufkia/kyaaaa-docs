@@ -90,7 +90,7 @@
             <li class="nav-item"><a class="nav-link" href="#section_sanitize">Sanitize Helper</a></li>
             <li class="nav-item"><a class="nav-link" href="#section_redirect">Redirect Helper</a></li>
             <li class="nav-item"><a class="nav-link" href="#section_session">Session Helper</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section_request">Request Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_request">HTTP Request Helper</a></li>
             <li class="nav-item"><a class="nav-link" href="#section_csrf">CSRF Helper</a></li>
           </ul>
 		</li>
@@ -443,7 +443,7 @@ return $query;</code></pre>
               <h2 class="ml-3 ml-sm-n3">Views</h2>
               <p class="lead">Creating a View</p>
               <p class="ml-3">Create a file called *.piews.php and put this in it:</p>
-              <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;html>
 &lt;head>
     &lt;title>My Blog&lt;/title>
 &lt;/head>
@@ -468,7 +468,7 @@ class Blog
     }
 }</code></pre>
               <p class="ml-3">Parsing data in views</p>
-              <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;html>
 &lt;head>
     &lt;title>&lt;?= $title ?>&lt;/title>
 &lt;/head>
@@ -484,7 +484,7 @@ class Blog
               <h2 class="ml-3 ml-sm-n3">Helper</h2>
               <p class="lead" id="section_url">URL Helper</p>
               <p class="ml-3">Example usage of url helper on views</p>
-              <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;html>
 &lt;head>
     &lt;title>My Blog&lt;/title>
     &lt;link href="&lt;?= url('assets/css') ?>/bootstrap.min.css" rel="stylesheet">
@@ -513,7 +513,7 @@ class HomeCtrl {
 
 <p class="lead" id="section_sanitize">Sanitize Helper</p>
 <p class="ml-3">Example usage of sanitize helper on views</p>
-<pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;html>
 &lt;head>
     &lt;title>&lt;?= esc($title) ?>&lt;/title>
 &lt;/head>
@@ -536,76 +536,146 @@ redirectTo('https://google.com'); // redirect to https://google.com</code></pre>
 redirectTo('https://google.com', 301); // redirect to https://google.com with HTTP/1.1 301 Moved Permanently</code></pre>
 
 <p class="lead" id="section_session">Session Helper</p>
-              <div class="ml-3 alert alert-dark">Load this helper using <code>use Core\Conf\Kyaaaa\Session;</code> or function <code>$session = session();</code></div> 
+    
 
-              <p class="ml-3">Session Config (optional) <a class="ml-1" target="_blank" href="https://www.php.net/manual/en/session.configuration.php"><i class="fas fa-external-link-alt"></i> See more available options here.</a></p>
-              <pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
-Session::start([
-    'name'            => 'PHPSSID_CUSTOM',
-    'cookie_lifetime' => 86400, // Seconds
-]);
-</code></pre>
+              <p class="ml-3 alert alert-dark">Config file: <code class="text-alert ml-1">core/Conf/Session.php</code> <a class="ml-2" target="_blank" href="https://www.php.net/manual/en/session.configuration.php"><i class="fas fa-external-link-alt"></i> See more available options here.</a><br>Load this helper using <code>session();</code> function.</p>
 
-              <p class="ml-3">Basic Usage</p>
-              <pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
-Session::set('name', 'kyaaaa');
-// or 
-$session = session();
-$session::set('name', 'kyaaaa');
+              
+              
 </code></pre>
               <p class="ml-3">Set Session Data</p>
-<pre class="line-numbers ml-3"><code class="language-php ml-n03"> use Core\Conf\Kyaaaa\Session;
-Session::set('name', 'kyaaaa');
-Session::set('country', 'usa');
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
+$session->set('name', 'kyaaaa');
+$session->set('country', 'usa');
 
 // With array
 $session_data = [
     'name' => 'nauf',
     'country' => 'usa'
 ];
-Session::set($session_data);
+$session->set($session_data);
 </code></pre>
 
 <p class="ml-3">Get Session Data</p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
-$name = $session::get('name');
-$country = $session::get('country');
+$name = $session->get('name');
+$country = $session->:get('country');
 echo 'My name is ' . $name . ', and Im from '. $country; // Produce My name is kyaaaa, and Im from usa
 </code></pre>
 
 <p class="ml-3">Set Flash Data</p>
-<pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
-Session::flash('notification', 'success');
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
+Session->flash('notification', 'success');
 </code></pre>
 
 <p class="ml-3">Get Flash Data</p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
-echo $session::pull('notification'); // Produce : success;
+echo $session->pull('notification'); // Produce : success;
 </code></pre>
 
 <p class="ml-3">Check if session has a key <code>boolean</code></p>
-<pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
-Session::has('name'); // true
-Session::has('address'); // false
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
+Session->has('name'); // true
+Session->has('address'); // false
 </code></pre>
 
 <p class="ml-3">Remove Session Data</p>
-<pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
-Session::remove('name');
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
+Session->remove('name');
 </code></pre>
 
 <p class="ml-3">Destroy all session data</p>
-<pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
-Session::clear();
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
+Session->clear();
 </code></pre>
 
-<p class="lead" id="section_request">Request Helper</p>
-<p class="ml-3">COMING ASAP</p>
+<p class="lead" id="section_request">HTTP Request Helper</p>
+<p class="ml-3 alert alert-dark">Load this helper using <code>request();</code> function.</p>
+<p class="ml-3">POST data by key name</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$this->request = request();
+$this->request->post('example'); // Equal $_POST['example'];
+</code></pre>
+
+<p class="ml-3">GET data by key name</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$this->request = request();
+$this->request->get('example'); // Equal $_GET['example'];
+</code></pre>
+
+<p class="ml-3">REQUEST data by key name</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$this->request = request();
+$this->request->request('example'); // Equal $_REQUEST['example'];
+</code></pre>
+
+<p class="ml-3">Get Request Uri</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$this->request = request();
+$this->request->getUri();
+</code></pre>
+
+<p class="ml-3">Get Request Uri Segments</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03"> // Current url : http://localhost:5555/docs/started
+$this->request = request();
+$this->request->getSegment(1); // Producce : docs
+$this->request->getSegment(2); // Producce : started
+</code></pre>
+
+<p class="ml-3">Check Method Request</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">// is Ajax -Boolean Result (true or false)
+$this->request = request();
+$this->request->isAjax(); 
+
+// is Post -Boolean Result (true or false)
+$this->request = request();
+$this->request->isPost(); 
+
+// is Get -Boolean Result (true or false)
+$this->request = request();
+$this->request->isGet(); 
+
+// or use get method instead
+$this->request = request();
+$this->request->getMethod(); // return : get, post, put, delete, etc.
+</code></pre>
+
+
 
         <p class="lead" id="section_url">CSRF Helper</p>
-              <p class="ml-3">COMING ASAP</p>
+        <p class="ml-3 alert alert-dark">Load this helper using <code>csrf();</code> function.</p>
+        <p class="ml-3">Customize CSRF Options (Optional)</p>
+        <pre class="line-numbers ml-3"><code class="language-php ml-n03">$this->csrf = csrf();
+$this->csrf->setExpiry(3600);
+$this->csrf->setTokenName('kyaaaa_csrf');
+$this->csrf->setExpiry('kyaaaa_token');   
+</code></pre>
 
+<p class="ml-3">Echo hidden input csrf field to the form.</p>
+        <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;form method="post" action="&lt;?= url('post') ?>">
+    &lt;?php csrf()->tokenField(); ?>
+    &lt;input type="text" class="form-control mb-2" name="address" placeholder="address">
+    &lt;button type="submit" class="btn btn-primary">Save&lt;/button>
+&lt;/form>
+</code></pre>
+
+<p class="ml-3">Echo hidden input csrf field to the form.</p>
+        <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;form method="post" action="&lt;?= url('post') ?>">
+    &lt;?php csrf()->tokenField(); ?>
+    &lt;input type="text" class="form-control mb-2" name="address" placeholder="address">
+    &lt;button type="submit" class="btn btn-primary">Save&lt;/button>
+&lt;/form>
+</code></pre>
              
+<p class="ml-3">CSRF Validation</p>
+        <pre class="line-numbers ml-3"><code class="language-php ml-n03">if(!csrf()->isValidRequest()){
+    die("die: eval csrf request rejected");
+}
+</code></pre>
+
+<p class="ml-3">Example validation on Route Middaleware</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->post('/post', [\Core\Controllers\HomeCtrl::class,'post'])->middleware(function(){
+    if(!csrf()->isValidRequest()){
+        die("die: eval csrf request rejected");
+    }
+});
+</code></pre>
 
       </div>
     </div>
