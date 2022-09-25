@@ -88,6 +88,10 @@
             <li class="nav-item"><a class="nav-link" href="#section_url">URL Helper</a></li>
             <li class="nav-item"><a class="nav-link" href="#section_dump">Dump Helper</a></li>
             <li class="nav-item"><a class="nav-link" href="#section_sanitize">Sanitize Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_redirect">Redirect Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_session">Session Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_request">Request Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_csrf">CSRF Helper</a></li>
           </ul>
 		</li>
       </ul>
@@ -128,7 +132,9 @@
 		============================ -->
         <section id="section_installation">
           <h2 class="ml-3 ml-sm-n3">Installation</h2>
-            <div class="alert alert-warning mb-4 w-100 ml-3"><span class="badge badge-danger text-uppercase">Note:</span> PHP version 7.4 or newer is required.</div>
+          <p class="lead">System Requirements</p>
+            <p class="ml-3 text-white fw-bolder">Note: PHP version 7.4 or newer is required. </p>
+
           <p class="lead">Composer Installation</p>
             <div class="alert alert-dark text-alert ml-3" role="alert">
                 composer create-project naufkia/kyaaaa-php:dev-main
@@ -505,9 +511,9 @@ class HomeCtrl {
     }
 }</code></pre>
 
-              <p class="lead" id="section_sanitize">Sanitize Helper</p>
-              <p class="ml-3">Example usage of sanitize helper on views</p>
-              <pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
+<p class="lead" id="section_sanitize">Sanitize Helper</p>
+<p class="ml-3">Example usage of sanitize helper on views</p>
+<pre class="line-numbers ml-3"><code class="language-html ml-n03">&lt;html>
 &lt;head>
     &lt;title>&lt;?= esc($title) ?>&lt;/title>
 &lt;/head>
@@ -516,7 +522,91 @@ class HomeCtrl {
     &lt;h3>&lt;?= esc($desc) ?>&lt;/h3>
 &lt;/body>
 &lt;/html></code></pre>
-        
+
+              <p class="lead" id="section_redirect">Redirect Helper</p>
+              <p class="ml-3">Example usage <code class="text-alert">redirectTo()</code></p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php
+redirectTo(url('user/privacy')); // redirect to http://localhost:5555/user/privacy</code></pre>
+<p class="ml-3">Redirect to external url</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php
+redirectTo('https://google.com'); // redirect to https://google.com</code></pre>
+<p class="ml-3">Redirect with http header codes. Supported <code class="text-alert">301</code> <code class="text-alert">302</code> <code class="text-alert">303</code></p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php
+// Default Moved Temporary 303 or 302, if you want moved permanently use custom code 
+redirectTo('https://google.com', 301); // redirect to https://google.com with HTTP/1.1 301 Moved Permanently</code></pre>
+
+<p class="lead" id="section_session">Session Helper</p>
+              <div class="ml-3 alert alert-dark">Load this helper using <code>use Core\Conf\Kyaaaa\Session;</code> or function <code>$session = session();</code></div> 
+
+              <p class="ml-3">Session Config (optional) <a class="ml-1" target="_blank" href="https://www.php.net/manual/en/session.configuration.php"><i class="fas fa-external-link-alt"></i> See more available options here.</a></p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
+Session::start([
+    'name'            => 'PHPSSID_CUSTOM',
+    'cookie_lifetime' => 86400, // Seconds
+]);
+</code></pre>
+
+              <p class="ml-3">Basic Usage</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
+Session::set('name', 'kyaaaa');
+// or 
+$session = session();
+$session::set('name', 'kyaaaa');
+</code></pre>
+              <p class="ml-3">Set Session Data</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03"> use Core\Conf\Kyaaaa\Session;
+Session::set('name', 'kyaaaa');
+Session::set('country', 'usa');
+
+// With array
+$session_data = [
+    'name' => 'nauf',
+    'country' => 'usa'
+];
+Session::set($session_data);
+</code></pre>
+
+<p class="ml-3">Get Session Data</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
+$name = $session::get('name');
+$country = $session::get('country');
+echo 'My name is ' . $name . ', and Im from '. $country; // Produce My name is kyaaaa, and Im from usa
+</code></pre>
+
+<p class="ml-3">Set Flash Data</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
+Session::flash('notification', 'success');
+</code></pre>
+
+<p class="ml-3">Get Flash Data</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
+echo $session::pull('notification'); // Produce : success;
+</code></pre>
+
+<p class="ml-3">Check if session has a key <code>boolean</code></p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
+Session::has('name'); // true
+Session::has('address'); // false
+</code></pre>
+
+<p class="ml-3">Remove Session Data</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
+Session::remove('name');
+</code></pre>
+
+<p class="ml-3">Destroy all session data</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">use Core\Conf\Kyaaaa\Session;
+Session::clear();
+</code></pre>
+
+<p class="lead" id="section_request">Request Helper</p>
+<p class="ml-3">COMING ASAP</p>
+
+        <p class="lead" id="section_url">CSRF Helper</p>
+              <p class="ml-3">COMING ASAP</p>
+
+             
+
       </div>
     </div>
 	
