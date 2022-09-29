@@ -15,14 +15,21 @@
 <!-- Magnific Popup -->
 <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css" />
 <!-- Highlight Syntax -->
-<link rel="stylesheet" type="text/css" href="assets/css/prism.css?v=4" />
+<link rel="stylesheet" type="text/css" href="assets/css/prism.css?v=8" />
 <!-- Custom Stylesheet -->
-<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css?v=4" />
+<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css?v=8" />
 
 </head>
 
-<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125" class="bootstrap-dark">
-
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125" class="bootstrap-dark" onload="launch_toast()">
+    <div id="toast"><div id="img"><img style="margin-top:3px;" width="80%" src="assets/images/search.png"/></div><div id="desc">JUST (CTRL+F) FOR SEARCH</div></div>
+    <script>
+        function launch_toast() {
+            var x = document.getElementById("toast")
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+        }
+        </script>
 <!-- Preloader -->
 <div class="preloader">
   <div class="lds-ellipsis">
@@ -79,7 +86,7 @@
           <ul class="nav flex-column">
 			<li class="nav-item"><a class="nav-link" href="#section_routes">Router</a></li>
 			<li class="nav-item"><a class="nav-link" href="#section_controllers">Controllers</a></li>
-			<li class="nav-item"><a class="nav-link" href="#section_models">Model & Query Builder</a></li>
+			<li class="nav-item"><a class="nav-link" href="#section_models">Models</a></li>
 			<li class="nav-item"><a class="nav-link" href="#section_views">Views</a></li>
           </ul>
         </li>
@@ -92,6 +99,7 @@
             <li class="nav-item"><a class="nav-link" href="#section_session">Session Helper</a></li>
             <li class="nav-item"><a class="nav-link" href="#section_request">HTTP Request Helper</a></li>
             <li class="nav-item"><a class="nav-link" href="#section_csrf">CSRF Helper</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section_email">E-Mail Helper</a></li>
           </ul>
 		</li>
       </ul>
@@ -165,7 +173,7 @@
                 <li><span class="badge badge-success">GET</span> <code>$router->get('/home', function() { /* ... */ });</code></li>
                 <li><span class="badge badge-info">POST</span> <code>$router->post('/home', function() { /* ... */ });</code></li>
                 <li><span class="badge badge-primary">PUT</span> <code>$router->put('/home', function() { /* ... */ });</code></li>
-                <li><span class="badge badge-danger">DELETE</span> <code>$router->post('/home', function() { /* ... */ });</code></li>
+                <li><span class="badge badge-danger">DELETE</span> <code>$router->delete('/home', function() { /* ... */ });</code></li>
             </ul>
             <p class="lead">Dynamic based Route Patterns</p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">// http(s)://www.example.org/product/12/item/21
@@ -199,18 +207,18 @@ $router->get('/product/:id-:title', function($id, $title) {
 
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->group('/articles', function() use ($router) {
 
-// Produces: '/product/'
+// Produces: '/articles/product/'
 $router->get('/', function() {
     echo 'Product overview';
 });
 
     $router->group('/item', function() use ($router) {
-        // Produces: '/product/item'
+        // Produces: '/articles/product/item'
         $router->get('/', function() {
             echo 'Item Overview';
         });
 
-        // Produces: '/product/item/4'
+        // Produces: '/articles/product/item/4'
         $router->get('/:id', function($id) {
             echo 'Item #: ' . $id;
         });
@@ -259,8 +267,12 @@ class HomeCtrl {
           <hr class="divider">
 
           <section id="section_models">
-              <h2 class="ml-3 ml-sm-n3">Model & Query Builder</h2>
-              <p class="lead">Example</p>
+              <h2 class="ml-3 ml-sm-n3">Modeling Data</h2>
+              <p class="lead">Database Config File</p>
+              <div class="alert alert-dark text-alert ml-3" role="alert">
+                /core/Conf/Database.php
+              </div>
+              <p class="lead">Models Example</p>
               <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php namespace Core\Models;
 
 use Core\Conf\Kyaaaa\DB;
@@ -283,7 +295,7 @@ return $query; // Produces: SELECT * FROM mytable</code></pre>
               <p class="ml-3">Get all data with limit</p>
               <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
 $query = $builder->all()->limit(20)->get();
-return $query; // Produces: SELECT * FROM mytable</code></pre>
+return $query; // Produces: SELECT * FROM mytable LIMIT 20</code></pre>
               <p class="ml-3">Get specific columns from the table</p>
               <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
 $builder->select('name,email,status');
@@ -431,8 +443,8 @@ $builder->unionAll('suppliers', 'name');
 $query = $builder->get();
 return $query; // Produces: SELECT city FROM customers UNION ALL SELECT city FROM suppliers</code></pre>
 
-              <p class="lead ml-3">Custom Queries</p>
-              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$query = DB::query()->custom('TRUNCATE TABLE mytable');
+              <p class="lead ml-3">Custom Raw Queries</p>
+              <pre class="line-numbers ml-3"><code class="language-php ml-n03">$query = DB::query()->raw('TRUNCATE TABLE mytable');
 return $query;</code></pre>
 
           </section>
@@ -442,7 +454,8 @@ return $query;</code></pre>
           <section id="section_views">
               <h2 class="ml-3 ml-sm-n3">Views</h2>
               <p class="lead">Creating a View</p>
-              <p class="ml-3">Create a file called *.piews.php and put this in it:</p>
+              <p class="ml-3 mb-n2">Note : View files must be ended with *.kyaaaa.php</p>
+              <p class="ml-3">Create a file called blog.kyaaaa.php and put this in it:</p>
               <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;html>
 &lt;head>
     &lt;title>My Blog&lt;/title>
@@ -456,7 +469,7 @@ return $query;</code></pre>
               <p class="ml-3">Controller Example</p>
               <pre class="line-numbers ml-3"><code class="language-php ml-n03">&lt;?php
 
-namespace Apk\Kontolers;
+namespace Core\Controllers;
 
 class Blog
 {
@@ -565,7 +578,7 @@ echo 'My name is ' . $name . ', and Im from '. $country; // Produce My name is k
 
 <p class="ml-3">Set Flash Data</p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
-Session->flash('notification', 'success');
+$session->flash('notification', 'success');
 </code></pre>
 
 <p class="ml-3">Get Flash Data</p>
@@ -575,18 +588,18 @@ echo $session->pull('notification'); // Produce : success;
 
 <p class="ml-3">Check if session has a key <code>boolean</code></p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
-Session->has('name'); // true
-Session->has('address'); // false
+$session->has('name'); // true
+$session->has('address'); // false
 </code></pre>
 
 <p class="ml-3">Remove Session Data</p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
-Session->remove('name');
+$session->remove('name');
 </code></pre>
 
-<p class="ml-3">Destroy all session data</p>
+<p class="ml-3">Clear all session data</p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
-Session->clear();
+$session->clear();
 </code></pre>
 
 <p class="lead" id="section_request">HTTP Request Helper</p>
@@ -636,9 +649,20 @@ $this->request = request();
 $this->request->getMethod(); // return : get, post, put, delete, etc.
 </code></pre>
 
+<p class="ml-3">Get Request File</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$file = $this->request->file('field_name'); // Get Files 
+$this->request->getFileName($file); // Get Files Name
+$this->request->getFileType($file); // Get Files Mime Type
+$this->request->getFileSize($file); // Get Files Size - Return int (Megabytes)
+// Save (Moving file to public directory)
+$path = 'upload/image'; // move to public/upload/image
+$newfilename = 'newimage.png'; // new file name
+$moveFile = $this->request->move($file, $path, $newfilename); // Return boolean 
+</code></pre>
 
 
-        <p class="lead" id="section_url">CSRF Helper</p>
+
+        <p class="lead" id="section_csrf">CSRF Helper</p>
         <p class="ml-3 alert alert-dark">Load this helper using <code>csrf();</code> function.</p>
         <p class="ml-3">Customize CSRF Options (Optional)</p>
         <pre class="line-numbers ml-3"><code class="language-php ml-n03">$this->csrf = csrf();
@@ -669,7 +693,7 @@ $this->csrf->setExpiry('kyaaaa_token');
 }
 </code></pre>
 
-<p class="ml-3">Example validation on Route Middaleware</p>
+<p class="ml-3">Example validation on Route Middleware</p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->post('/post', [\Core\Controllers\HomeCtrl::class,'post'])->middleware(function(){
     if(!csrf()->isValidRequest()){
         die("die: eval csrf request rejected");
@@ -677,6 +701,24 @@ $this->csrf->setExpiry('kyaaaa_token');
 });
 </code></pre>
 
+<p class="lead" id="section_email">Email Config File</p>
+              <div class="alert alert-dark text-alert ml-3" role="alert">
+                /core/Conf/Email.php
+              </div>
+
+              <p class="ml-3">Sending your email</p>
+<pre class="line-numbers ml-3"><code class="language-php ml-n03">$email = \Core\Conf\Email::start();
+$email->setFrom('me@gmail.com', 'Mr Lorem');
+$email->setTo('to@gmail.com', 'Mr Ipsum');
+$email->setSubject('Email Subject');
+$email->setBody('Email BOdy');
+$send = $email->send();
+if ($send) {
+    $status = "Sent successfully!";
+} else {
+    $status = "Sent failed!";
+}
+</code></pre>
       </div>
     </div>
 	
