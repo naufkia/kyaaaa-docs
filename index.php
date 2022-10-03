@@ -207,7 +207,7 @@ $router->get('/product/:id-:title', function($id, $title) {
 
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$router->group('/articles', function() use ($router) {
 
-// Produces: '/articles/product/'
+// Produces: '/articles/'
 $router->get('/', function() {
     echo 'Product overview';
 });
@@ -323,12 +323,11 @@ $builder->where('status !=', 'active');
 $query = $builder->get();
 return $query; // Produces: SELECT * FROM mytable WHERE status != 'active'</code></pre>
 
-<p class="ml-3">Multiple where condition (AND OPERATOR)</p>
+<p class="ml-3">Using AND Operator</p>
               <pre class="line-numbers ml-3"><code class="language-php ml-n03">$builder = DB::query('mytable');
 $builder->select('*');
 $builder->where('status', 'active');
-$builder->where('publish !=', 0); // also can use and(). Example: $builder->and('publish !=', 0);
-$query = $builder->get();
+$builder->and('publish !=', 0);
 return $query; // Produces: SELECT * FROM mytable WHERE status = 'active' AND publish = 0</code></pre>
 
 <p class="ml-3">Using OR Operator</p>
@@ -402,7 +401,7 @@ return $query; // Produces: INSERT INTO mytable (id, name, email) VALUES ('1', '
     'status' => 'non-active'
 ];
 $builder = DB::query('mytable');
-$builder->insert($data);
+$builder->update($data);
 $builder->where('id', 1);
 $query = $builder->save();
 return $query; // gives UPDATE mytable SET status = 'non-active' WHERE id = 1</code></pre>
@@ -583,7 +582,7 @@ $session->flash('notification', 'success');
 
 <p class="ml-3">Get Flash Data</p>
 <pre class="line-numbers ml-3"><code class="language-php ml-n03">$session = session();
-echo $session->pull('notification'); // Produce : success;
+echo $session->getFlash('notification'); // Produce : success;
 </code></pre>
 
 <p class="ml-3">Check if session has a key <code>boolean</code></p>
@@ -654,6 +653,16 @@ $this->request->getMethod(); // return : get, post, put, delete, etc.
 $this->request->getFileName($file); // Get Files Name
 $this->request->getFileType($file); // Get Files Mime Type
 $this->request->getFileSize($file); // Get Files Size - Return int (Megabytes)
+
+// Validate file Types
+$allowedTypes = [
+    'image/png' => 'png',
+    'image/jpeg' => 'jpg'
+];
+if (!$this->request->validate($file, $allowedTypes)) {
+    die('file not allowed');
+}
+
 // Save (Moving file to public directory)
 $path = 'upload/image'; // move to public/upload/image
 $newfilename = 'newimage.png'; // new file name
@@ -711,7 +720,7 @@ $this->csrf->setExpiry('kyaaaa_token');
 $email->setFrom('me@gmail.com', 'Mr Lorem');
 $email->setTo('to@gmail.com', 'Mr Ipsum');
 $email->setSubject('Email Subject');
-$email->setBody('Email BOdy');
+$email->setBody('Email Body');
 $send = $email->send();
 if ($send) {
     $status = "Sent successfully!";
